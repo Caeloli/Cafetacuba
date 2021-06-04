@@ -1,0 +1,58 @@
+.none {
+    display: none;
+}
+
+.btn-s1 {
+    padding: 1rem 2rem;
+    border: 0.2rem solid $cbrownlight;
+    border-radius: 2rem;
+    transition: background-color 1s ease-in-out, color 1s ease-in-out;
+    text-transform: capitalize;
+    &:hover {
+        background-color: $cbrownlight;
+        color: $cwhite;
+    }
+}
+
+.cell-3 {
+    @include grid(3, 0);
+}
+
+.cell-2 {
+    @include grid(2, 0);
+}
+
+.card-container {
+    position: relative;
+    .card {
+        position: relative;
+        width: 32rem;
+        height: 45rem;
+        background-color: $clgblack;
+        border-radius: 2rem;
+        overflow: hidden;
+        &::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: $cbrownlight;
+            clip-path: circle(15rem at 80% 20%);
+            transition: all 0.5s ease-in-out;
+        }
+        &:hover::before {
+            clip-path: circle(30rem at 80% 20%);
+        }
+        &::after {
+            content: "Americano";
+            position: absolute;
+            top: 30%;
+            left: -20%;
+            font-size: 10rem;
+            font-weight: $bold;
+            font-family: $italicFont;
+        }
+    }
+}

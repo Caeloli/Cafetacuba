@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="build/css/app.css" />
+    <title>Sitio Cafetero</title>
+  </head>
+  <body>
+    <header class="header-video">
+      <div class="overlay">
+        <div class="container-video">
+          <div class="container-navbar">
+            <nav class="container navbar">
+              <h1><a href="#" class="nav-logo">Cafetacuba</a></h1>
+              <ul class="nav-menu">
+                <li class="nav-item">
+                  <a href="/pages/menu.html" class="nav-link">Menú</a>
+                </li>
+                <li class="nav-item">
+                  <a href="#" class="nav-link">Puntos de Venta</a>
+                </li>
+                <li class="nav-item">
+                  <a href="#" class="nav-link">Sign Up</a>
+                </li>
+                <li class="nav-item">
+                  <a href="#" class="nav-link">Únete </a>
+                </li>
+                <li class="nav-item">
+                  <a href="#" class="nav-link"
+                    ><i class="fas fa-shopping-cart"></i
+                  ></a>
+                </li>
+              </ul>
+              <div class="hamburger">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+              </div>
+            </nav>
+          </div>
+          <div class="container main-content">
+            <div class="slider-info">
+              <h1>DISFRUTA DEL MEJOR CAFÉ DEL MUNDO</h1>
+              <p>
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras
+                vel lectus nec nibh mollis hendrerit. In commodo, magna eget
+                ullamcorper sodales, arcu tellus semper sapien.
+              </p>
+            </div>
+            <div class="video-navigation">
+              <span onclick="videoUrl('video1.mp4')"></span>
+              <span onclick="videoUrl('video2.mp4')"></span>
+              <span onclick="videoUrl('video3.mp4')"></span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <video id="video-slider" autoplay muted loop>
+        <source src="/video/video1.mp4" type="video/mp4" />
+      </video>
+    </header>
+    <div class="note-slider"></div>
+    <section class="primary-content">
+      <main class="container main-container">
+        <div class="txt-img-container">
+          <div class="text-offer">
+            <h2>El café grátis a la vuelta de la esquina</h2>
+            <p>En todas nuestras sucurslaes</p>
+            <a href="" class="btn-s1">Únete Ahora</a>
+          </div>
+          <img src="src/img/img2.jpg" alt="cafe-gratis" />
+        </div>
+        <div class="-txt-img-container">
+          <div class="text-offer">
+            <h2>El café grátis a la vuelta de la esquina</h2>
+            <p>En todas nuestras sucurslaes</p>
+            <a href="" class="btn-s1">Ordena Ahora</a>
+          </div>
+          <img src="src/img/img2.jpg" alt="cafe-gratis" />
+        </div>
+        <div class="txt-img-container">
+          <div class="text-offer">
+            <h2>Descubre nuestro menú</h2>
+            <p>Las mejor de todo el mercado</p>
+            <a href="" class="btn-s1">Ir a Menú</a>
+          </div>
+          <img src="src/img/img2.jpg" alt="cafe-gratis" />
+        </div>
+      </main>
+    </section>
+    <footer class="footer">
+      <nav class="container navbar">
+        <h1><a href="#" class="nav-logo">Cafetacuba</a></h1>
+        <ul class="nav-menu">
+          <li class="nav-item">
+            <a href="#" class="nav-link">Menú</a>
+          </li>
+          <li class="nav-item">
+            <a href="#" class="nav-link">Facebook</a>
+          </li>
+          <li class="nav-item">
+            <a href="#" class="nav-link">Instagram</a>
+          </li>
+        </ul>
+      </nav>
+    </footer>
+    <script
+      src="https://kit.fontawesome.com/4b249c1b38.js"
+      crossorigin="anonymous"
+    ></script>
+    <script src="build/js/bundle.js"></script>
+  </body>
+</html>

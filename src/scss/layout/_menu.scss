@@ -1,0 +1,81 @@
+.general-menu {
+    margin-top: 5rem;
+    margin-bottom: 4rem;
+    h1 {
+        margin-bottom: 4rem;
+    }
+    text-align: center;
+}
+
+.display-all-menu {
+    @include tablet {
+        @include grid(2, 1rem);
+    }
+    @include desktop {
+        @include grid(3, 1rem);
+    }
+}
+
+.presentation-menu {
+    border: 0.2rem solid $cblack;
+    height: 30rem;
+    color: $cwhite;
+    position: relative;
+    transition: border-color 0.5s ease-in-out;
+    .bg-menu-img {
+        height: 100%;
+        background-position: center;
+        background-size: cover;
+        transition: filter 0.5s ease-in-out;
+    }
+    .coffee-img {
+        background-image: url("/src/img/coffee.jpg");
+    }
+    .hamb-img {
+        background-image: url("/src/img/hamburger.jpg");
+    }
+
+    .coldb-img {
+        background-image: url("/src/img/frappe.jpg");
+    }
+
+    .cake-img {
+        background-image: url("/src/img/pancake.jpg");
+    }
+
+    .dessert-img {
+        background-image: url("/src/img/dessert.jpg");
+    }
+
+    .bg-menu-text {
+        visibility: hidden;
+        opacity: 0;
+        transition: visibility 0s ease-in-out, opacity 0.5s ease-in-out;
+    }
+
+    &:hover {
+        border-color: $cbrownlight;
+
+        .bg-menu-img {
+            filter: blur(0.3rem);
+        }
+
+        .bg-menu-text {
+            display: flex;
+            visibility: visible;
+            position: absolute;
+            background-color: rgba(0, 0, 0, 0.3); /* Black w/opacity/see-through */
+            color: white;
+            font-weight: bold;
+            border: 3px solid #f1f1f1;
+            top: 0%;
+            bottom: 0%;
+            right: 0;
+            left: 0;
+            margin: 0% auto;
+            flex-direction: column;
+            justify-content: center;
+            opacity: 1;
+        }
+    }
+}

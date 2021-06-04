@@ -1,0 +1,75 @@
+html {
+  font-size: 62.5%; //10px = 1rem
+  box-sizing: border-box;
+}
+//Snippet Paul Irish
+*,
+*:before,
+*:after {
+  box-sizing: inherit;
+}
+
+body {
+  font-family: $principalFont;
+  font-size: 1.6rem;
+}
+
+p {
+  font-size: 1.4rem;
+  color: #000;
+}
+
+.container {
+  max-width: 125rem; // width > max-width: -> max-width
+  width: 95%; // width < max-width -> width
+  margin: 0 auto;
+}
+
+a {
+  text-decoration: none;
+  color: $cblack;
+}
+
+li {
+  list-style: none;
+}
+
+img {
+  max-width: 100%;
+}
+
+h1,
+h2,
+h3 {
+  margin: 0;
+}
+
+h1 {
+  font-size: 2.5rem;
+}
+
+h2 {
+  font-size: 1.8rem;
+}
+
+h3 {
+  font-size: 1.25rem;
+}
+
+@include tablet {
+  h1 {
+    font-size: 4rem;
+  }
+
+  h2 {
+    font-size: 3.6rem;
+  }
+
+  h3 {
+    font-size: 3rem;
+  }
+
+  p {
+    font-size: 2rem;
+  }
+}

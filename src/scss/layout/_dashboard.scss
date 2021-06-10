@@ -1,0 +1,254 @@
+//Variables Dashboard
+//Colors light
+$db-color-primary: #f9e900;
+$db-color-secondary: #f98a4f;
+$db-color-text: #000000;
+//Colors dark
+$db-color-primary--dark: #000103;
+$db-color-secondary--dark: #414042;
+$db-color-text--dark: #fffffa;
+//Theme light
+.theme {
+    --db-color-primary: #{$db-color-primary};
+    --db-color-secondary: #{$db-color-secondary};
+    --db-color-text: #{$db-color-text};
+    &--dark {
+        --db-color-primary: #{$db-color-primary--dark};
+        --db-color-secondary: #{$db-color-secondary--dark};
+        --db-color-text: #{$db-color-text--dark};
+    }
+}
+
+//DASHBOARD UTILITIES
+
+.dashboard-container {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    grid-template-rows: 8% 1fr 5%;
+    grid-template-areas:
+        "sidenav-db header-db"
+        "sidenav-db main-db"
+        "sidenav-db footer-db";
+    height: 100vh;
+    color: var(--db-color-text);
+}
+
+.header-dashboard {
+    grid-area: header-db;
+    padding: 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 0.2rem solid rgba(0, 0, 0, 0.2);
+    .menu-icon {
+        padding: 1rem;
+        font-size: 2.5rem;
+        border-radius: 50%;
+        background-color: #dadae3;
+        -webkit-box-shadow: 0px 13px 13px -9px rgba(0, 0, 0, 0.61);
+        -moz-box-shadow: 0px 13px 13px -9px rgba(0, 0, 0, 0.61);
+        box-shadow: 0px 13px 13px -9px rgba(0, 0, 0, 0.61);
+        transition: all 0.5s ease-in-out;
+        &:hover {
+            cursor: pointer;
+        }
+    }
+}
+
+.admin-user-menu {
+    display: none;
+    flex-direction: column;
+    position: absolute;
+    top: 5.6rem;
+    right: 50%;
+    transform: translateX(50%);
+    width: 35rem;
+    align-items: center;
+    z-index: 1;
+    background-color: white;
+    -webkit-box-shadow: 0px 26px 61px -19px rgba(0, 0, 0, 0.75);
+    -moz-box-shadow: 0px 26px 61px -19px rgba(0, 0, 0, 0.75);
+    box-shadow: 0px 26px 61px -19px rgba(0, 0, 0, 0.75);
+    border-radius: 10%;
+    padding: 4rem 1rem;
+    .profile-picture {
+        position: relative;
+        width: 15rem;
+        height: 15rem;
+        border-radius: 50%;
+        overflow: hidden;
+        border: 0.1rem solid grey;
+        margin: 0 auto;
+        img {
+            height: 100%;
+            width: 100%;
+        }
+        input {
+            display: none;
+        }
+        label {
+            width: 100%;
+            position: absolute;
+            bottom: 0%;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: rgba(0, 0, 0, 0.7);
+            color: #e4e4e6;
+            font-size: 1.3rem;
+            height: 35%;
+            transition: height 0.4s ease-in-out;
+        }
+        &:hover {
+            label {
+                cursor: pointer;
+                height: 100%;
+            }
+        }
+    }
+
+    @include tablet {
+        top: 7.8rem;
+        right: 0.5%;
+        transform: translateX(0%);
+        .profile-picture {
+            label {
+                height: 0%;
+            }
+        }
+    }
+
+    .info-admin {
+        width: 100%;
+        ul {
+            padding: 0%;
+        }
+        &-item {
+            margin: 0% auto;
+            width: 90%;
+            display: flex;
+            padding: 1.5rem 0;
+            justify-content: flex-start;
+            align-items: center;
+            font-size: 1.9rem;
+            transition: all 0.5s ease-in-out;
+            border-radius: 2rem;
+            p {
+                font-size: 1.9rem;
+                margin: 0;
+            }
+            .round-icon {
+                color: #fffffa;
+                padding: 0.9rem;
+                border-radius: 50%;
+                background-color: gray;
+                margin-right: 1rem;
+            }
+            .fa-arrow-right {
+                margin: 0 0.4rem 0 auto;
+            }
+            &:hover {
+                cursor: pointer;
+                background-color: rgba(gray, 0.4);
+                .fa-arrow-right {
+                    animation: arrowMovesRight 1s infinite;
+                }
+            }
+        }
+    }
+}
+
+#user-picture {
+    display: inline-block;
+    width: 4rem;
+    height: 4rem;
+    border-radius: 50%;
+
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    background-image: url("/src/img/default-profile.png");
+    -webkit-box-shadow: 0px 13px 13px -9px rgba(0, 0, 0, 0.61);
+    -moz-box-shadow: 0px 13px 13px -9px rgba(0, 0, 0, 0.61);
+    box-shadow: 0px 13px 13px -9px rgba(0, 0, 0, 0.61);
+    transition: all 0.5s ease-in-out;
+    &:hover {
+        cursor: pointer;
+    }
+}
+
+.sidenav-dashboard {
+    grid-area: sidenav-db;
+    display: flex;
+    flex-direction: column;
+    background-color: var(--db-color-primary);
+    height: 100%;
+    width: 0;
+    position: absolute;
+    overflow-y: auto;
+    box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.16), 0 0 0 1px rgba(0, 0, 0, 0.08);
+    z-index: 2;
+    // transform: translateX(-24rem);
+    transition: all 0.5s ease-in-out;
+    h3 {
+        margin: 2rem 0;
+        text-align: center;
+    }
+    .sidenav-list {
+        padding: 0%;
+        margin-top: 6.5rem;
+    }
+    .sidenav-item {
+        display: block;
+        padding: 2rem 2rem 2rem 0;
+        margin-left: 4rem;
+        transition: all 0.5s ease-in-out;
+        &:hover {
+            background-color: rgba(255, 255, 255, 1);
+            border-radius: 10rem 0 0 10rem;
+            cursor: pointer;
+            padding-left: 4rem;
+        }
+    }
+    @include tablet {
+        position: relative;
+        width: 24rem;
+    }
+}
+
+.active {
+    //transform: translateX(0);
+    width: 24rem;
+    @include tablet {
+        width: 0;
+    }
+}
+
+.main-dashboard {
+    grid-area: main-db;
+    display: flex;
+    justify-content: space-between;
+    margin: 2rem;
+    padding: 2rem;
+    height: 15rem;
+    background-color: #e4e4e6;
+}
+
+.footer {
+    grid-area: footer-db;
+}
+
+//Animations Key Frames
+@keyframes arrowMovesRight {
+    0% {
+        transform: translateX(0);
+    }
+    50% {
+        transform: translateX(10%);
+    }
+    100% {
+        transform: translateX(0);
+    }
+}

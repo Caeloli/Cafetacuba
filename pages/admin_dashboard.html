@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="../build/css/app.css" />
+    <title>Ad</title>
+    <script src="/node_modules/jquery/dist/jquery.min.js"></script>
+  </head>
+  <body>
+    <div class="dashboard-container theme">
+      <header class="header-dashboard">
+        <div class="menu-icon">
+          <i class="fas fa-bars"></i>
+        </div>
+        <div id="user-picture" data-isselected="false"></div>
+      </header>
+      <div class="admin-user-menu">
+        <div class="profile-picture">
+          <img src="/src/img/dessert.jpg" alt="" id="profile-photo" />
+          <input type="file" id="file" />
+          <label for="file" id="uploadPictureBtn">Actualizar Foto</label>
+        </div>
+        <div class="info-admin">
+          <ul>
+            <li class="info-admin-item">
+              <i class="fas fa-cog round-icon"></i>
+              <p>Configuración</p>
+              <i class="fas fa-arrow-right"></i>
+            </li>
+            <li class="info-admin-item">
+              <i class="fas fa-moon round-icon"></i>
+              <p>Pantalla y Accesibilidad</p>
+              <i class="fas fa-arrow-right"></i>
+            </li>
+            <li class="info-admin-item">
+              <i class="fas fa-sign-out-alt round-icon"></i>
+              <p>Cerrar Sesión</p>
+              <i class="fas fa-arrow-right"></i>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <aside class="sidenav-dashboard">
+        <h3>Cafetacuba</h3>
+        <ul class="sidenav-list">
+          <li class="sidenav-item">Vista General</li>
+          <li class="sidenav-item">Menú</li>
+          <li class="sidenav-item">Transacciones</li>
+          <li class="sidenav-item">Usuarios</li>
+          <li class="sidenav-item">Ordenes</li>
+        </ul>
+      </aside>
+      <main class="main-dashboard"></main>
+      <footer class="footer-dashboard"></footer>
+    </div>
+    <script
+      src="https://kit.fontawesome.com/4b249c1b38.js"
+      crossorigin="anonymous"
+    ></script>
+    <script src="/build/js/bundle.js"></script>
+  </body>
+</html>

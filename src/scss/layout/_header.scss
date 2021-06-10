@@ -30,6 +30,7 @@
             rgba(0, 0, 0, 1) 100%
         );
         filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#000000",endColorstr="#000000",GradientType=1);
+        z-index: 1;
         .container-video {
             height: 100%;
         }
@@ -88,7 +89,7 @@
                 height: 0.3rem;
                 width: 0rem;
                 background: transparent;
-                transition: width 0.5s ease-in-out, background-color 0.5s ease-in-out;
+                transition: all 0.5s ease-in-out;
             }
             &:hover {
                 color: $cbrownlight;

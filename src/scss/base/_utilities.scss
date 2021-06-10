@@ -39,11 +39,11 @@
             width: 100%;
             height: 100%;
             background-color: $cbrownlight;
-            clip-path: circle(15rem at 80% 20%);
+            clip-path: circle(10rem at 80% 10%);
             transition: all 0.5s ease-in-out;
         }
         &:hover::before {
-            clip-path: circle(30rem at 80% 20%);
+            clip-path: circle(20rem at 80% 10%);
         }
         &::after {
             content: "Americano";
@@ -53,6 +53,80 @@
             font-size: 10rem;
             font-weight: $bold;
             font-family: $italicFont;
+            color: rgba(255, 255, 255, 0.04);
+        }
+        .img-box {
+            position: absolute;
+            transform: translateY(50%);
+            z-index: 2;
+            width: 100%;
+            height: 22rem;
+            transition: all 0.5s ease-in-out;
+        }
+        img {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) rotate(-25deg);
+            width: 90%;
+        }
+        .content-box {
+            position: absolute;
+            bottom: 0%;
+            width: 100%;
+            height: 10rem;
+            text-align: center;
+            transition: all 1s ease-in-out;
+            z-index: 1;
+            h2 {
+                position: relative;
+                font-weight: $bold;
+                letter-spacing: 0.1rem;
+                color: $cwhite;
+            }
+
+            .quantity-sel {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                padding: 0.8rem 2rem;
+                opacity: 0;
+                visibility: hidden;
+                transition: all 0.5s ease-in-out;
+                h3 {
+                    color: $cwhite;
+                }
+            }
+            .extra-opt {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                padding: 0.8rem 2rem;
+                opacity: 0;
+                visibility: hidden;
+                transition: all 0.5s ease-in-out;
+                h3 {
+                    color: $cwhite;
+                }
+            }
+        }
+        &:hover {
+            .img-box {
+                transform: translateY(0%);
+            }
+            .content-box {
+                height: 21rem;
+                .quantity-sel {
+                    opacity: 1;
+                    visibility: visible;
+                    transition-delay: 0.5s;
+                }
+                .extra-opt {
+                    opacity: 1;
+                    visibility: visible;
+                    transition-delay: 0.5s;
+                }
+            }
         }
     }
 }

@@ -3,6 +3,10 @@ const sass = require("gulp-sass");
 const imagemin = require("gulp-imagemin");
 const concat = require("gulp-concat");
 
+//Utilities
+const postcss = require("gulp-postcss");
+const autoprefixer = require("autoprefixer");
+
 const paths = {
     cssSrc: "src/scss/app.scss",
     cssDest: "build/css",
@@ -17,6 +21,7 @@ function css(){
     .pipe(sass({
         outputStyle: "expanded"
     }))
+    .pipe(postcss([autoprefixer()]))
     .pipe(dest(paths.cssDest));
 }
 

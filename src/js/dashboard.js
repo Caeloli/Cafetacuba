@@ -28,15 +28,3 @@ const sidenavEl = $(".sidenav-dashboard");
 hambMenu.on("click", function(){
     toggleClassName(sidenavEl, "active");
 })
-
-/*const video = document.getElementById("video-slider");
-function videoUrl(videoName){
-    video.src = `/video/${videoName}`;
-    video.classList.remove("none");
-}
-video.addEventListener("ended", function(){
-
-})
-
-
-*/

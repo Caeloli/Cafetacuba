@@ -1,14 +1,18 @@
 //Variables Dashboard
 //Colors light
-$db-color-primary: #f9e900;
-$db-color-secondary: #f98a4f;
+//Main-Content
+$sidenav-color: #425c59;
+$db-color-primary: #e2eceb;
+$db-color-secondary: #d6a218;
 $db-color-text: #000000;
+//M
 //Colors dark
 $db-color-primary--dark: #000103;
 $db-color-secondary--dark: #414042;
 $db-color-text--dark: #fffffa;
 //Theme light
 .theme {
+    --sidenav-color: #{$sidenav-color};
     --db-color-primary: #{$db-color-primary};
     --db-color-secondary: #{$db-color-secondary};
     --db-color-text: #{$db-color-text};
@@ -21,6 +25,72 @@ $db-color-text--dark: #fffffa;
 
 //DASHBOARD UTILITIES
 
+.grid-c-1 {
+    @include grid(1, 1rem);
+}
+
+.grid-c-2 {
+    @include grid(2, 2rem);
+}
+
+.d-grid-c-2 {
+    @include desktop {
+        @include grid(2, 3rem);
+    }
+}
+
+.grid-c-3 {
+    @include grid(3, 3rem);
+}
+
+.d-grid-c-3 {
+    @include desktop {
+        @include grid(3, 3rem);
+    }
+}
+
+.grid-c-4 {
+    @include grid(4, 3rem);
+}
+//Bg
+.bg-db-dark {
+    background-color: var(--sidenav-color);
+}
+
+.bg-db-2nd {
+    background-color: var(--db-color-secondary);
+}
+//Text-Color
+.c-white {
+    color: white;
+}
+
+.none {
+    display: none;
+}
+
+.btn {
+    border-radius: 2rem;
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.5s ease-in-out;
+}
+
+.btn-primary {
+    background-color: var(--db-color-secondary);
+    &:hover {
+        background-color: darken($db-color-secondary, 10%);
+    }
+}
+
+.btn-secondary {
+    background-color: darken($db-color-primary, 20%);
+    &:hover {
+        background-color: darken($db-color-primary, 40%);
+    }
+}
+
+//CONTENEDOR
 .dashboard-container {
     display: grid;
     grid-template-columns: auto 1fr;
@@ -31,8 +101,15 @@ $db-color-text--dark: #fffffa;
         "sidenav-db footer-db";
     height: 100vh;
     color: var(--db-color-text);
+    h4 {
+        font-weight: $regular;
+        font-size: 1.5rem;
+        @include desktop {
+            font-size: 2rem;
+        }
+    }
 }
-
+//HEADER
 .header-dashboard {
     grid-area: header-db;
     padding: 2rem;
@@ -40,6 +117,7 @@ $db-color-text--dark: #fffffa;
     align-items: center;
     justify-content: space-between;
     border-bottom: 0.2rem solid rgba(0, 0, 0, 0.2);
+    background-color: var(--db-color-primary);
     .menu-icon {
         padding: 1rem;
         font-size: 2.5rem;
@@ -55,6 +133,26 @@ $db-color-text--dark: #fffffa;
     }
 }
 
+#user-picture {
+    display: inline-block;
+    width: 4rem;
+    height: 4rem;
+    border-radius: 50%;
+
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    background-image: url("/src/img/default-profile.png");
+    -webkit-box-shadow: 0px 13px 13px -9px rgba(0, 0, 0, 0.61);
+    -moz-box-shadow: 0px 13px 13px -9px rgba(0, 0, 0, 0.61);
+    box-shadow: 0px 13px 13px -9px rgba(0, 0, 0, 0.61);
+    transition: all 0.5s ease-in-out;
+    &:hover {
+        cursor: pointer;
+    }
+}
+
+// USER ADMIN MENU
 .admin-user-menu {
     display: none;
     flex-direction: column;
@@ -71,6 +169,13 @@ $db-color-text--dark: #fffffa;
     box-shadow: 0px 26px 61px -19px rgba(0, 0, 0, 0.75);
     border-radius: 10%;
     padding: 4rem 1rem;
+
+    @include tablet {
+        top: 7.8rem;
+        right: 0.5%;
+        transform: translateX(0%);
+    }
+    //ADMIN-MAIN-MENU
     .profile-picture {
         position: relative;
         width: 15rem;
@@ -107,13 +212,7 @@ $db-color-text--dark: #fffffa;
                 height: 100%;
             }
         }
-    }
-
-    @include tablet {
-        top: 7.8rem;
-        right: 0.5%;
-        transform: translateX(0%);
-        .profile-picture {
+        @include tablet {
             label {
                 height: 0%;
             }
@@ -149,6 +248,8 @@ $db-color-text--dark: #fffffa;
             .fa-arrow-right {
                 margin: 0 0.4rem 0 auto;
             }
+        }
+        .main-item {
             &:hover {
                 cursor: pointer;
                 background-color: rgba(gray, 0.4);
@@ -160,33 +261,17 @@ $db-color-text--dark: #fffffa;
     }
 }
 
-#user-picture {
-    display: inline-block;
-    width: 4rem;
-    height: 4rem;
-    border-radius: 50%;
-
-    background-repeat: no-repeat;
-    background-position: center;
-    background-size: cover;
-    background-image: url("/src/img/default-profile.png");
-    -webkit-box-shadow: 0px 13px 13px -9px rgba(0, 0, 0, 0.61);
-    -moz-box-shadow: 0px 13px 13px -9px rgba(0, 0, 0, 0.61);
-    box-shadow: 0px 13px 13px -9px rgba(0, 0, 0, 0.61);
-    transition: all 0.5s ease-in-out;
-    &:hover {
-        cursor: pointer;
-    }
-}
-
 .sidenav-dashboard {
+    text-transform: uppercase;
     grid-area: sidenav-db;
     display: flex;
     flex-direction: column;
-    background-color: var(--db-color-primary);
+    background-color: var(--sidenav-color);
+    color: white;
     height: 100%;
     width: 0;
-    position: absolute;
+    position: fixed;
+
     overflow-y: auto;
     box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.16), 0 0 0 1px rgba(0, 0, 0, 0.08);
     z-index: 2;
@@ -195,6 +280,9 @@ $db-color-text--dark: #fffffa;
     h3 {
         margin: 2rem 0;
         text-align: center;
+    }
+    i {
+        color: var(--db-color-secondary);
     }
     .sidenav-list {
         padding: 0%;
@@ -206,7 +294,8 @@ $db-color-text--dark: #fffffa;
         margin-left: 4rem;
         transition: all 0.5s ease-in-out;
         &:hover {
-            background-color: rgba(255, 255, 255, 1);
+            color: var(--db-color-text);
+            background-color: var(--db-color-primary);
             border-radius: 10rem 0 0 10rem;
             cursor: pointer;
             padding-left: 4rem;
@@ -214,30 +303,268 @@ $db-color-text--dark: #fffffa;
     }
     @include tablet {
         position: relative;
-        width: 24rem;
+        width: 30rem;
     }
 }
 
 .active {
     //transform: translateX(0);
-    width: 24rem;
+    width: 30rem;
     @include tablet {
         width: 0;
     }
 }
-
+// MAIN
 .main-dashboard {
+    background-color: var(--db-color-primary);
     grid-area: main-db;
     display: flex;
     justify-content: space-between;
-    margin: 2rem;
+
     padding: 2rem;
-    height: 15rem;
-    background-color: #e4e4e6;
 }
 
-.footer {
+.active-view {
+}
+// GENERAL VIEW
+.general-view {
+    width: 95%;
+    height: 95%;
+    margin: 0 auto;
+}
+
+.general-data {
+    width: 100%;
+    height: auto;
+    @include desktop {
+        height: 15rem;
+    }
+}
+
+.data-card {
+    justify-self: center;
+    width: 100%;
+    border-radius: 4rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    -webkit-box-shadow: 0px 8px 15px 3px rgba(0, 0, 0, 0.5);
+    box-shadow: 0px 8px 15px 3px rgba(0, 0, 0, 0.5);
+    span {
+        font-weight: $light;
+    }
+    @include tablet {
+        width: 35rem;
+    }
+}
+
+.only-d {
+    display: none;
+    @include desktop {
+        display: flex;
+    }
+}
+
+// FOOTER
+.footer-dashboard {
+    background-color: var(--db-color-primary);
     grid-area: footer-db;
+}
+
+//DATATABLES
+
+.general-tables {
+    margin-top: 5rem;
+    font-size: 1.4rem;
+    height: 80%;
+    width: 100%;
+    h3 {
+        font-size: 2rem;
+    }
+    @include desktop {
+        font-size: 2rem;
+        h3 {
+            font-size: 3rem;
+        }
+    }
+}
+
+.order-data {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.body-scrollable {
+    height: 30rem;
+    @include desktop {
+        height: 40rem;
+    }
+}
+
+.user-data {
+    display: none;
+    @include desktop {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+}
+
+.container-tables {
+    background-color: white;
+    height: 95%;
+    border-radius: 3rem;
+    -webkit-box-shadow: 0px 5px 22px 0px rgba(0, 0, 0, 0.54);
+    -moz-box-shadow: 0px 5px 22px 0px rgba(0, 0, 0, 0.54);
+    box-shadow: 0px 5px 22px 0px rgba(0, 0, 0, 0.54);
+    padding-bottom: 3rem;
+    h3 {
+        padding: 2rem 0;
+    }
+    div:first-of-type {
+        margin: 0 4rem;
+    }
+}
+//////////// MENU VIEW /////////////
+
+.menu-view {
+    width: 100%;
+    height: 100%;
+    .menu-section {
+        margin-top: 2rem;
+        display: flex;
+        justify-content: space-around;
+        flex-wrap: wrap;
+        height: 100%;
+        width: 100%;
+    }
+    h1 {
+        margin-left: 4rem;
+    }
+}
+
+.menu-list {
+    width: 60%;
+    height: 90%;
+    background-color: white;
+    -webkit-box-shadow: 0px 5px 22px 0px rgba(0, 0, 0, 0.54);
+    -moz-box-shadow: 0px 5px 22px 0px rgba(0, 0, 0, 0.54);
+    box-shadow: 0px 5px 22px 0px rgba(0, 0, 0, 0.54);
+    div:first-of-type {
+        margin: 2rem;
+    }
+}
+
+.menu-add {
+    width: 30%;
+    height: 85%;
+    background-color: white;
+    border-radius: 5rem;
+    -webkit-box-shadow: 0px 5px 22px 0px rgba(0, 0, 0, 0.54);
+    -moz-box-shadow: 0px 5px 22px 0px rgba(0, 0, 0, 0.54);
+    box-shadow: 0px 5px 22px 0px rgba(0, 0, 0, 0.54);
+    .form-add-product {
+        height: 90%;
+        padding-top: 3rem;
+        text-align: center;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around;
+        legend {
+            text-align: start;
+            padding-left: 5rem;
+            font-weight: $bold;
+            font-size: 3rem;
+            padding-bottom: 1rem;
+            border-bottom: 0.2rem solid lighten(black, 80%);
+        }
+        label {
+            display: none;
+        }
+        input {
+            display: block;
+            width: 80%;
+            height: 6rem;
+            border: 0.1rem dotted black;
+            margin: 0 auto;
+        }
+        .btn-group {
+            display: flex;
+            margin: 0 auto;
+            input {
+                flex-basis: 30%;
+            }
+        }
+    }
+}
+//TRANSACTION VIEW//
+
+.transactions-view {
+    margin: 0 auto;
+}
+
+.transaction-section {
+    width: 100%;
+    .transaction-graphs {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around;
+        width: 95%;
+    }
+    .transactions-pending {
+        background-color: white;
+        width: 100%;
+        border-radius: 3rem;
+        div:first-of-type {
+            margin: 2rem;
+        }
+        -webkit-box-shadow: 0px 26px 61px -19px rgba(0, 0, 0, 0.75);
+        -moz-box-shadow: 0px 26px 61px -19px rgba(0, 0, 0, 0.75);
+        box-shadow: 0px 26px 61px -19px rgba(0, 0, 0, 0.75);
+    }
+}
+
+//USERS VIEW//
+.users-view {
+    width: 90%;
+    margin: 0 auto;
+    h1 {
+        margin-left: 5rem;
+    }
+    .users-datatable-container {
+        margin: 0 auto;
+        background-color: white;
+        border-radius: 3rem;
+        height: 90%;
+        width: 90%;
+        div:first-of-type {
+            margin: 0 3rem;
+            padding-top: 3rem;
+        }
+    }
+    #datable-users-view {
+        width: 10rem;
+    }
+}
+
+//ORDERS VIEW
+
+.orders-view {
+    width: 100%;
+    height: 95%;
+    .orders-section {
+        margin-top: 2rem;
+        height: 45%;
+        h4 {
+            margin: 0%;
+            padding: 2rem 0 2rem 3rem;
+        }
+    }
+}
+
+.orders-pending-section {
 }
 
 //Animations Key Frames

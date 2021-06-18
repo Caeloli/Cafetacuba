@@ -4,11 +4,16 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      href="https://unpkg.com/frappe-datatable@0.0.5/dist/frappe-datatable.min.css"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="//cdn.datatables.net/1.10.25/css/jquery.dataTables.min.css">
     <link rel="stylesheet" href="../build/css/app.css" />
     <title>Ad</title>
-    <script src="/node_modules/jquery/dist/jquery.min.js"></script>
+    
   </head>
-  <body>
+  <body class=".theme">
     <div class="dashboard-container theme">
       <header class="header-dashboard">
         <div class="menu-icon">
@@ -17,44 +22,261 @@
         <div id="user-picture" data-isselected="false"></div>
       </header>
       <div class="admin-user-menu">
-        <div class="profile-picture">
-          <img src="/src/img/dessert.jpg" alt="" id="profile-photo" />
-          <input type="file" id="file" />
-          <label for="file" id="uploadPictureBtn">Actualizar Foto</label>
-        </div>
-        <div class="info-admin">
-          <ul>
-            <li class="info-admin-item">
-              <i class="fas fa-cog round-icon"></i>
-              <p>Configuración</p>
-              <i class="fas fa-arrow-right"></i>
-            </li>
-            <li class="info-admin-item">
-              <i class="fas fa-moon round-icon"></i>
-              <p>Pantalla y Accesibilidad</p>
-              <i class="fas fa-arrow-right"></i>
-            </li>
-            <li class="info-admin-item">
-              <i class="fas fa-sign-out-alt round-icon"></i>
-              <p>Cerrar Sesión</p>
-              <i class="fas fa-arrow-right"></i>
-            </li>
-          </ul>
+        <div class="admin-main-menu">
+          <div class="profile-picture">
+            <img src="/src/img/dessert.jpg" alt="" id="profile-photo" />
+            <input type="file" id="file" />
+            <label for="file" id="uploadPictureBtn">Actualizar Foto</label>
+          </div>
+          <div class="info-admin">
+            <ul>
+              <li class="info-admin-item main-item">
+                <i class="fas fa-cog round-icon"></i>
+                <p>Configuración</p>
+                <i class="fas fa-arrow-right"></i>
+              </li>
+              <li class="info-admin-item main-item">
+                <i class="fas fa-moon round-icon"></i>
+                <p>Pantalla y Accesibilidad</p>
+                <i class="fas fa-arrow-right"></i>
+              </li>
+              <li class="info-admin-item main-item">
+                <i class="fas fa-sign-out-alt round-icon"></i>
+                <p>Cerrar Sesión</p>
+                <i class="fas fa-arrow-right"></i>
+              </li>
+            </ul>
+          </div>
         </div>
       </div>
       <aside class="sidenav-dashboard">
         <h3>Cafetacuba</h3>
         <ul class="sidenav-list">
-          <li class="sidenav-item">Vista General</li>
-          <li class="sidenav-item">Menú</li>
-          <li class="sidenav-item">Transacciones</li>
-          <li class="sidenav-item">Usuarios</li>
-          <li class="sidenav-item">Ordenes</li>
+          <li class="sidenav-item" data-view="general-view">
+            <i class="fas fa-home"></i> Vista General
+          </li>
+          <li class="sidenav-item" data-view="menu-view">
+            <i class="fas fa-utensils"></i> Menú
+          </li>
+          <li class="sidenav-item" data-view="transactions-view">
+            <i class="fas fa-money-bill-wave"></i> Transacciones
+          </li>
+          <li class="sidenav-item" data-view="users-view">
+            <i class="far fa-user"></i> Usuarios
+          </li>
+          <li class="sidenav-item" data-view="orders-view">
+            <i class="fas fa-clipboard-list"></i> Órdenes
+          </li>
         </ul>
       </aside>
-      <main class="main-dashboard"></main>
+      <main class="main-dashboard">
+        <div class="general-view" data-isdisplay="true">
+          <!--GENERALVIEW-->
+          <div class="general-data grid-c-1 d-grid-c-3">
+            <!--DATOS GENERALES-->
+            <div class="data-card bg-db-2nd c-white">
+              <h4>Número de Usuarios</h4>
+              <span id="data-num-users"></span>
+            </div>
+            <div class="data-card bg-db-dark c-white">
+              <h4>Ganancias</h4>
+              <span id="data-sells"></span>
+            </div>
+            <div class="data-card bg-db-dark c-white only-d">
+              <h4>Número de Artículos</h4>
+              <span id="data-num-items"></span>
+            </div>
+          </div>
+          <div class="general-tables d-grid-c-2">
+            <div class="order-data container-tables">
+              <h3>Órdenes Pendientes</h3>
+              <table id="datatable-order">
+                <thead>
+                  <tr>
+                    <th>ID Orden</th>
+                    <th>Nombre</th>
+                    <th>Estatus</th>
+                  </tr>
+                </thead>
+              </table>
+            </div>
+            <div class="user-data container-tables">
+              <h3>Usuarios</h3>
+              <table id="datatable-user">
+                <thead>
+                  <tr>
+                    <th>Foto</th>
+                    <th>Nombre de Usuario</th>
+                    <th>E-Mail</th>
+                    <th>Número de Celular</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <td>No hay</td>
+                  <td>Benito Camelo</td>
+                  <td>caelol@outlook.com</td>
+                  <td>555267167732</td>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+        <div class="menu-view none">
+          <h1>Menú</h1>
+          <div class="menu-section d-grid-c-2">
+            <div class="menu-list">
+              <table id="datatable-articles">
+                <thead>
+                  <tr>
+                    <th>Name</th>
+                    <th>Descripción</th>
+                    <th>Cantidad</th>
+                    <th>Precio</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>Manzanas</td>
+                    <td>Deliciosas</td>
+                    <td>350</td>
+                    <td>$20</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="menu-add">
+              <form action="" class="form-add-product">
+                <legend>Agregar Producto</legend>
+                <div class="form-group">
+                  <label for="product_ctgry">Nombre de Producto</label>
+                  <div>
+                    <input id="product_ctgry" name="product_ctgry" placeholder="Categoría de Producto" required="" list="categories"></input>
+                    <datalist id="categories">
+                      <option value="Postres"></option>
+                      <option value="Hamburguesas"></option>
+                    </datalist>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label for="product_name">Nombre de Producto</label>
+                  <div>
+                    <input id="product_name" name="product_name" placeholder="Nombre de Producto" required="" type="text"></input>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label for="product_desc">Descripción</label>
+                  <div>
+                    <input id="product_desc" name="product_desc" type="text" placeholder="Descripción de Producto" required="">
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label for="product_expense">Precio</label>
+                  <div>
+                    <input id="product_expense" name="product_expense" type="number" placeholder="Precio de Producto" required="" min="0">
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label for="product_stock">Cantidad</label>
+                  <div>
+                    <input id="product_stock" name="product_stock" type="number" placeholder="Cantidad de Producto" required="" min="0">
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label for="productbutton"></label>
+                  <div class="btn-group">
+                    <input class="btn btn-secondary" type="reset" value="Limpiar">
+                    <input class="btn btn-primary" type="submit" value="Agregar Artículo">
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+        <div class="transactions-view none">
+          <h1>Transacciones</h1>
+          <div class="transaction-section d-grid-c-2">
+            <div class="transaction-graphs">
+              <canvas id="transaction-chart"></canvas>
+              <canvas id="transaction-money-chart"></canvas>
+            </div>
+            <div class="transactions-pending">
+              <table id="datatable-transactions-pending">
+                <thead>
+                  <th>
+                    <th>Nombre de Usuario</th>
+                    <th>E-Mail</th>
+                    <th>Cantidad</th>
+                    <th>Voucher</th>
+                    <th>Estatus</th>
+                  </th>
+                </thead>
+              </table>
+            </div>
+         </div>
+        </div>
+        <div class="users-view none">
+          <h1>Usuarios</h1>
+          <div class="users-datatable-container">
+          <table id="datatable-users-view">
+            <thead>
+              <tr>
+                <th>Nombre de Usuario</th>
+                <th>E-Mail</th>
+                <th>Número de Celular</th>
+              </tr>
+            </thead>
+          </table>
+        </div>
+        </div>
+        <div class="orders-view none">
+          <h1>Ordenes</h1>
+          <div class="orders-section d-grid-c-2">
+            <div class="orders-pending-section container-tables">
+              <h4>Ordenes Pendientes</h4>
+              <table id="datatable-pending">
+                <thead>
+                  <tr>
+                    <th>ID</th>
+                    <th>Nombre Cliente</th>
+                    <th>Estatus</th>
+                  </tr>
+                </thead>
+              </table>
+            </div>
+            <div class="orders-oncook-section container-tables">
+              <h4>Ordenes en Preparación</h4>
+              <table id="datatable-oncook">
+                <thead>
+                  <tr>
+                    <th>ID</th>
+                    <th>Nombre Cliente</th>
+                    <th>Estatus</th>
+                  </tr>
+                </thead>
+              </table>
+            </div>
+          </div>
+          <div class="orders-section ">
+            <div class="orders-ready-section container-tables">
+              <h4>Ordenes Completadas</h4>
+              <table id="datatable-ready">
+                <thead>
+                  <tr>
+                    <th>ID</th>
+                    <th>Nombre Cliente</th>
+                    <th>Estatus</th>
+                  </tr>
+                </thead>
+              </table>
+            </div>
+          </div>
+        </div>
+      </main>
       <footer class="footer-dashboard"></footer>
     </div>
+    <script src="/node_modules/jquery/dist/jquery.min.js"></script>
+    <script src="//cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script
       src="https://kit.fontawesome.com/4b249c1b38.js"
       crossorigin="anonymous"

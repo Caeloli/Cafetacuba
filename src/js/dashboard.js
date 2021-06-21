@@ -59,12 +59,12 @@ $.ajax({
     type: "GET",
     dataType: "json",
     success: function(result){
-        
-        console.log(result[0].users);
-    },
-    complete: function(dataResponse){
-        console.log(dataResponse);
-        alert(dataResponse);
+        const numUsers = $("#data-num-users");
+        const profit = $("#data-sells");
+        const numArticles = $("#data-num-items");
+        numUsers.text(result[0].users);
+        profit.text("$" + result[0].profits);
+        numArticles.text(result[0].articles);
     }
 });
 
@@ -72,10 +72,21 @@ $.ajax({
 
 
 $("#datatable-user").DataTable({
+    ajax:{
+        url: "../../src/json/users.json",
+        dataSrc: ""
+    },
+    columns: [
+        {targets: 0, data: function (row, type, val, meta){
+            return row.firstname + " " + row.lastname
+        }},
+        {data: "email"},
+        {data: "cellphone"}
+    ],
     language:{
         url : languageURL
     },
-    responsive: true
+    responsive: true,
 });
 
 $("#datatable-order").DataTable({

@@ -129,7 +129,7 @@
             </div>
           </div>
           <div class="general-tables d-grid-c-2">
-            <div class="order-data container-tables">
+            <div class="order-data container-tables" style="width: 100%;">
               <h3>Órdenes Pendientes</h3>
               <table id="datatable-order">
                 <thead>
@@ -141,7 +141,7 @@
                 </thead>
               </table>
             </div>
-            <div class="user-data container-tables">
+            <div class="user-data container-tables" >
               <h3>Usuarios</h3>
               <table id="datatable-user">
                 <thead>
@@ -258,7 +258,7 @@
         <div class="users-view none">
           <h1>Usuarios</h1>
           <div class="users-datatable-container">
-          <table id="datatable-users-view">
+          <table id="datatable-users-view" style="width: 100%;">
             <thead>
               <tr>
                 <th>Nombre de Usuario</th>
@@ -271,40 +271,14 @@
         </div>
         <div class="orders-view none">
           <h1>Ordenes</h1>
-          <div class="orders-section d-grid-c-2">
-            <div class="orders-pending-section container-tables">
-              <h4>Ordenes Pendientes</h4>
-              <table id="datatable-pending">
-                <thead>
-                  <tr>
-                    <th>ID</th>
-                    <th>Nombre Cliente</th>
-                    <th>Estatus</th>
-                  </tr>
-                </thead>
-              </table>
-            </div>
-            <div class="orders-oncook-section container-tables">
-              <h4>Ordenes en Preparación</h4>
-              <table id="datatable-oncook">
-                <thead>
-                  <tr>
-                    <th>ID</th>
-                    <th>Nombre Cliente</th>
-                    <th>Estatus</th>
-                  </tr>
-                </thead>
-              </table>
-            </div>
-          </div>
           <div class="orders-section ">
-            <div class="orders-ready-section container-tables">
-              <h4>Ordenes Completadas</h4>
-              <table id="datatable-ready">
+            <div class="all-orders-section container-tables">
+              <h4>Ordenes</h4>
+              <table id="datatable-orders" style="width: 100%;">
                 <thead>
                   <tr>
-                    <th>ID</th>
                     <th>Nombre Cliente</th>
+                    <th>Artículo</th>
                     <th>Estatus</th>
                   </tr>
                 </thead>

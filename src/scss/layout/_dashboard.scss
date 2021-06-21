@@ -573,24 +573,19 @@ $db-color-text--dark: #fffffa;
 
 //USERS VIEW//
 .users-view {
-    width: 90%;
+    height: 100%;
     margin: 0 auto;
     h1 {
-        margin-left: 5rem;
+        margin-left: 2rem;
     }
     .users-datatable-container {
-        margin: 0 auto;
+        margin-top: 1rem;
         background-color: white;
         border-radius: 3rem;
-        height: 90%;
-        width: 90%;
+        padding: 0 2rem;
         div:first-of-type {
-            margin: 0 3rem;
-            padding-top: 3rem;
+            padding-top: 2rem;
         }
-    }
-    #datable-users-view {
-        width: 10rem;
     }
 }
 
@@ -601,15 +596,11 @@ $db-color-text--dark: #fffffa;
     height: 95%;
     .orders-section {
         margin-top: 2rem;
-        height: 45%;
         h4 {
             margin: 0%;
             padding: 2rem 0 2rem 3rem;
         }
     }
-}
-
-.orders-pending-section {
 }
 
 //Animations Key Frames

@@ -1,5 +1,6 @@
-
-
+const colorBgGreen = "#ABD5AB";
+const colorBgRed = "#F79C9B";
+const yellowBgColor = "#FFFDD0" ;
 //Display ALL Menu
 const userMenuBtn = $("#user-picture");
 const userMenu = $(".admin-user-menu");
@@ -51,8 +52,25 @@ sidenavItems.each(function(){
 
 //DataTables
 const languageURL = "//cdn.datatables.net/plug-ins/1.10.25/i18n/Spanish.json";
-const yellowColor = "#FFFDD0" ;
 //GENERAL VIEW
+
+$.ajax({
+    url: "../../src/json/GeneralResult.json",
+    type: "GET",
+    dataType: "json",
+    success: function(result){
+        
+        console.log(result[0].users);
+    },
+    complete: function(dataResponse){
+        console.log(dataResponse);
+        alert(dataResponse);
+    }
+});
+
+
+
+
 $("#datatable-user").DataTable({
     language:{
         url : languageURL
@@ -80,7 +98,7 @@ $("#datatable-order").DataTable({
     ],
     "rowCallback": function(row, data, index){
         if(data.status.toUpperCase() === "PENDIENTE"){
-            $('td', row).css("background-color", yellowColor)
+            $('td', row).css("background-color", yellowBgColor)
         } 
     },
     language:{
@@ -187,7 +205,7 @@ $("#datatable-transactions-pending tbody").on("click", "button#accept-btn", func
     let row = tableTransaction.row(parentRow).node();
     $(cell).empty();
     $(cell).append('<p style="color: green; font-size:1.5rem">ACEPTADO</p>')
-    $(row).css("background-color", "#ABD5AB").css("color", "white");
+    $(row).css("background-color", colorBgGreen).css("color", "white");
 });
 
 $("#datatable-transactions-pending tbody").on("click", "button#deny-btn", function(){
@@ -197,34 +215,68 @@ $("#datatable-transactions-pending tbody").on("click", "button#deny-btn", functi
     let row = tableTransaction.row(parentRow).node();
     $(cell).empty();
     $(cell).append('<p style="color: #B02220; font-size:1.5rem">RECHAZADO</p>')
-    $(row).css("background-color", "#F79C9B").css("color", "white");
+    $(row).css("background-color", colorBgRed).css("color", "white");
 });
 
 /////////7USERS VIEW/////////7/////////7/////////7/////////7/////////
 /////////7/////////7/////////7/////////7/////////7/////////7/////////
-$("#datatable-users-view").DataTable({
-    data:[
-        {
-            "name":   "César",
-            "surname":     "González",
-            "e-mail": "caelol@outlook.com",
-            "cellphone": "5527167531"
-        }
-    ],
+const usersTable = $("#datatable-users-view").DataTable({
+    ajax:{
+        url: "../../src/json/users.json",
+        dataSrc: ""
+    },
     columns: [
         {targets: 0, data: function (row, type, val, meta){
-            return row.name + " " + row.surname
+            return row.firstname + " " + row.lastname
         }},
-        {data: "e-mail"},
+        {data: "email"},
         {data: "cellphone"}
     ],
     language:{
         url : languageURL
     },
-    responsive: true
+    responsive: true,
+    
 });
 
+setInterval(function(){
+    usersTable.ajax.reload(null, false);
+}, 30000);
+
 //ORDERS MENU
-$("#datatable-pending").DataTable();
-$("#datatable-oncook").DataTable();
-$("#datatable-ready").DataTable();
+$("#datatable-orders").DataTable({
+    ajax:{
+        url: "../../src/json/orders.json",
+        dataSrc: ""
+    },
+    columns: [
+    {targets: 0, data: function (row, type, val, meta){
+        return row.firstname + " " + row.lastname
+    }},
+    {data: "article"},
+    {data: function(row, type, val, meta){
+        if(row.statusID === 0){
+            return "EN ESPERA"
+        } else if(row.statusID === 1){
+            return "COCINANDO"
+        } else{
+            return "REALIZADO"
+        }
+    }}
+],
+rowCallback: function(row, data, index){
+    if(data.statusID === 0){
+        $('td', row).css("background-color", colorBgRed)
+    } else if(data.statusID === 1){
+        $('td', row).css("background-color", yellowBgColor)
+    } else{
+        $('td', row).css("background-color", colorBgGreen)
+    }
+
+},
+language:{
+    url : languageURL
+},
+responsive: true
+});
+

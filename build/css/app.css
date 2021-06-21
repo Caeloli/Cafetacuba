@@ -1558,29 +1558,23 @@ h3 {
 }
 
 .users-view {
-  width: 90%;
+  height: 100%;
   margin: 0 auto;
 }
 
 .users-view h1 {
-  margin-left: 5rem;
+  margin-left: 2rem;
 }
 
 .users-view .users-datatable-container {
-  margin: 0 auto;
+  margin-top: 1rem;
   background-color: white;
   border-radius: 3rem;
-  height: 90%;
-  width: 90%;
+  padding: 0 2rem;
 }
 
 .users-view .users-datatable-container div:first-of-type {
-  margin: 0 3rem;
-  padding-top: 3rem;
-}
-
-.users-view #datable-users-view {
-  width: 10rem;
+  padding-top: 2rem;
 }
 
 .orders-view {
@@ -1590,7 +1584,6 @@ h3 {
 
 .orders-view .orders-section {
   margin-top: 2rem;
-  height: 45%;
 }
 
 .orders-view .orders-section h4 {

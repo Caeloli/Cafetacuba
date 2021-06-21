@@ -1027,7 +1027,7 @@ h3 {
 }
 
 .btn-primary {
-  background-color: var(--db-color-secondary);
+  background-color: #d6a218;
 }
 
 .btn-primary:hover {
@@ -1035,11 +1035,34 @@ h3 {
 }
 
 .btn-secondary {
-  background-color: #a4c4c1;
+  background-color: #86afab;
 }
 
 .btn-secondary:hover {
-  background-color: #679b96;
+  background-color: #527d79;
+}
+
+.btn-cancel {
+  background-color: red;
+}
+
+.btn-cancel:hover {
+  background-color: #cc0000;
+}
+
+.close-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  width: 4rem;
+  height: 4rem;
+  background-color: white;
+  border-radius: 50%;
+  margin-right: 2rem;
+  position: absolute;
+  right: 0%;
+  cursor: pointer;
 }
 
 .dashboard-container {
@@ -1406,6 +1429,31 @@ h3 {
   margin: 0 4rem;
 }
 
+.overlay-edit-table {
+  position: fixed;
+  background-color: rgba(0, 0, 0, 0.5);
+  width: 100%;
+  height: 100%;
+  top: 0%;
+  display: none;
+  z-index: 3;
+  justify-content: center;
+}
+
+.overlay-edit-table .menu-form-container {
+  align-self: center;
+}
+
+.overlay-edit-table .menu-form-container .form-product label {
+  display: block;
+}
+
+.overlay-edit-table .menu-form-container .btn-group {
+  display: flex;
+  flex-wrap: wrap;
+  width: 80%;
+}
+
 .menu-view {
   width: 100%;
   height: 100%;
@@ -1425,6 +1473,7 @@ h3 {
 }
 
 .menu-list {
+  padding: 2rem;
   width: 60%;
   height: 90%;
   background-color: white;
@@ -1435,7 +1484,7 @@ h3 {
   margin: 2rem;
 }
 
-.menu-add {
+.menu-form-container {
   width: 30%;
   height: 85%;
   background-color: white;
@@ -1443,7 +1492,7 @@ h3 {
   box-shadow: 0px 5px 22px 0px rgba(0, 0, 0, 0.54);
 }
 
-.menu-add .form-add-product {
+.menu-form-container .form-product {
   height: 90%;
   padding-top: 3rem;
   text-align: center;
@@ -1452,7 +1501,7 @@ h3 {
   justify-content: space-around;
 }
 
-.menu-add .form-add-product legend {
+.menu-form-container .form-product legend {
   text-align: start;
   padding-left: 5rem;
   font-weight: 700;
@@ -1461,11 +1510,11 @@ h3 {
   border-bottom: 0.2rem solid #cccccc;
 }
 
-.menu-add .form-add-product label {
+.menu-form-container .form-product label {
   display: none;
 }
 
-.menu-add .form-add-product input {
+.menu-form-container .form-product input {
   display: block;
   width: 80%;
   height: 6rem;
@@ -1473,12 +1522,12 @@ h3 {
   margin: 0 auto;
 }
 
-.menu-add .form-add-product .btn-group {
+.menu-form-container .form-product .btn-group {
   display: flex;
   margin: 0 auto;
 }
 
-.menu-add .form-add-product .btn-group input {
+.menu-form-container .form-product .btn-group input {
   flex-basis: 30%;
 }
 

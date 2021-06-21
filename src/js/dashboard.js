@@ -79,8 +79,6 @@ $("#datatable-order").DataTable({
         }}
     ],
     "rowCallback": function(row, data, index){
-        console.log(data.status.toUpperCase());
-        console.log(row)
         if(data.status.toUpperCase() === "PENDIENTE"){
             $('td', row).css("background-color", yellowColor)
         } 
@@ -92,13 +90,35 @@ $("#datatable-order").DataTable({
 });
 
 //MENU TABLE
-$("#datatable-articles").DataTable({
+const tableArticles = $("#datatable-articles").DataTable({
+    columnDefs: [{
+        targets: -1,
+        data: null,
+        defaultContent:  '<button id="edit-btn" style="border: 0; background: none; color: #d6a218; cursor: pointer"><i class="fas fa-edit"></i></button><button id="delete-btn" style="border: 0; background: none; color: #425c59; cursor: pointer"><i class="fas fa-trash-alt"></i></button>'
+    }],
     language:{
         url : languageURL
     },
     responsive: true
 });
 
+$("#datatable-articles tbody").on("click", "button#edit-btn", function(){
+    const data = tableArticles.row($(this).parents('tr')).data();
+    $("#edit-product-name").val(data[0]);
+    $("#edit-product-desc").val(data[1]);
+    $("#edit-product-stock").val(data[2]);
+    $("#edit-product-expense").val(data[3].substring(1));
+    $(".overlay-edit-table").fadeIn().css("display", "flex");
+});
+
+$("#datatable-articles tbody").on("click", "button#delete-btn", function(){
+    const data = tableArticles.row($(this).parents('tr')).data();
+    confirm("¿Está seguro de borrar este artículo?");
+});
+
+function offOverlay(){
+    $(".overlay-edit-table").fadeOut();
+}
 //TRANSACTIONS VIEW
 //GRAPH
 const labels = [
@@ -135,15 +155,53 @@ const labels = [
     config
   );
   //DATATABLE
-$("#datatable-transactions-pending").DataTable({
+  
+const tableTransaction = $("#datatable-transactions-pending").DataTable({
+    ajax:{
+        url: "../../src/json/transaction.json",
+        dataSrc: ""
+    },
+    columns:[
+        {targets: 0, data: function (row, type, val, meta){
+            return row.firstname + " " + row.lastname
+        }},
+        {data: "email"},
+        {data: "amount"},
+        {data: "voucher"},
+    ],
+    columnDefs: [{
+        targets: 4,
+        data: null,
+        defaultContent:  '<button id="accept-btn" style="border: 0; background: none; color: #03AC13; cursor: pointer"><i class="fas fa-check-square"></i></button><button id="deny-btn" style="border: 0; background: none; color: #DC143C; cursor: pointer"><i class="fas fa-window-close"></i></button>'
+    }],
     language:{
         url: languageURL
     },
     responsive: true
 });
 
-//USERS VIEW
+$("#datatable-transactions-pending tbody").on("click", "button#accept-btn", function(){
+    const parentRow = $(this).closest("tr");
+    const parentCell = $(this).closest("td");
+    let cell = tableTransaction.cell(parentCell).node();
+    let row = tableTransaction.row(parentRow).node();
+    $(cell).empty();
+    $(cell).append('<p style="color: green; font-size:1.5rem">ACEPTADO</p>')
+    $(row).css("background-color", "#ABD5AB").css("color", "white");
+});
 
+$("#datatable-transactions-pending tbody").on("click", "button#deny-btn", function(){
+    const parentRow = $(this).closest("tr");
+    const parentCell = $(this).closest("td");
+    let cell = tableTransaction.cell(parentCell).node();
+    let row = tableTransaction.row(parentRow).node();
+    $(cell).empty();
+    $(cell).append('<p style="color: #B02220; font-size:1.5rem">RECHAZADO</p>')
+    $(row).css("background-color", "#F79C9B").css("color", "white");
+});
+
+/////////7USERS VIEW/////////7/////////7/////////7/////////7/////////
+/////////7/////////7/////////7/////////7/////////7/////////7/////////
 $("#datatable-users-view").DataTable({
     data:[
         {
@@ -170,72 +228,3 @@ $("#datatable-users-view").DataTable({
 $("#datatable-pending").DataTable();
 $("#datatable-oncook").DataTable();
 $("#datatable-ready").DataTable();
-
-//GENERAL VIEW
-//ORDERS
-/*
-let datatableOrder = new DataTable(document.getElementById("datatable-order"),{
-    columns: ["Nombre de Usuario", "E-Mail", "Número Celular"],
-    data:[
-        ["Pedrito Camelo", "Pedrito@Gmail.com", "5527167351"],
-        ["Pedrito Camelo", "Pedrito@Gmail.com", "5527167351"],
-        ["Pedrito Camelo", "Pedrito@Gmail.com", "5527167351"],
-        ["Pedrito Camelo", "Pedrito@Gmail.com", "5527167351"],
-        ["Pedrito Camelo", "Pedrito@Gmail.com", "5527167351"],
-        ["Pedrito Camelo", "Pedrito@Gmail.com", "5527167351"],
-        ["Pedrito Camelo", "Pedrito@Gmail.com", "5527167351"],
-        ["Pedrito Camelo", "Pedrito@Gmail.com", "5527167351"],
-        ["Pedrito Camelo", "Pedrito@Gmail.com", "5527167351"],
-        ["Pedrito Camelo", "Pedrito@Gmail.com", "5527167351"],
-        ["Pedrito Camelo", "Pedrito@Gmail.com", "5527167351"],
-        ["Pedrito Camelo", "Pedrito@Gmail.com", "5527167351"],
-        ["Pedrito Camelo", "Pedrito@Gmail.com", "5527167351"],
-        ["Pedrito Camelo", "Pedrito@Gmail.com", "5527167351"],
-        ["Pedrito Camelo", "Pedrito@Gmail.com", "5527167351"],
-        ["Pedrito Camelo", "Pedrito@Gmail.com", "5527167351"],
-        ["Pedrito Camelo", "Pedrito@Gmail.com", "5527167351"],
-        ["Pedrito Camelo", "Pedrito@Gmail.com", "5527167351"],
-        ["Pedrito Camelo", "Pedrito@Gmail.com", "5527167351"],
-        ["Pedrito Camelo", "Pedrito@Gmail.com", "5527167351"],
-        ["Pedrito Camelo", "Pedrito@Gmail.com", "5527167351"],
-        ["Benemerito de las Americas", "Benrito@Gmail.com", "5527167351"]
-    ],         
-    //layout: "fluid",
-    noDataMessage: "No hay que mostrar",
-    serialNoColumn: false,
-    dynamicRowHeight: true
-})
-//USERS
-let datatableUser = new DataTable(document.getElementById("datatable-user"),{
-       columns:[
-            {name: "Nombre de Usuario", resizable: false, editable: false},
-            {name: "E-Mail",  resizable: false, editable: false},
-            {name: "Número Celular", resizable: false, editable: false}
-        ],
-        data: [
-            ["Pedrito Camelo", "Pedrito@Gmail.com", "5527167351"],
-            ["Pedrito Camelo", "Pedrito@Gmail.com", "5527167351"],
-            ["Pedrito Camelo", "Pedrito@Gmail.com", "5527167351"],
-            ["Pedrito Camelo", "Pedrito@Gmail.com", "5527167351"],
-            ["Pedrito Camelo", "Pedrito@Gmail.com", "5527167351"],
-            ["Benemerito de las Americas", "Benrito@Gmail.com", "5527167351"]
-        ],
-        layout: "fluid",
-        noDataMessage: "No hay que mostrar",
-        serialNoColumn: false,
-        dynamicRowHeight: true
-    });
-//ORDERS VIEW
-let tableOrdersPending = new DataTable(document.getElementById("datatable-orders-oncook"),{
-    columns:[
-        {name: "ID Orden", resizable: false, editable: false},
-        {name: "Nombre de Usuario", resizable: false, editable:false},
-        {name: "Estatus de Orden", resizable: false, editable:false}
-    ],
-    data:[
-
-    ],
-
-});
-
-*/

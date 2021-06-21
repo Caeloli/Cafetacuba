@@ -77,17 +77,39 @@ $db-color-text--dark: #fffffa;
 }
 
 .btn-primary {
-    background-color: var(--db-color-secondary);
+    background-color: $db-color-secondary;
     &:hover {
         background-color: darken($db-color-secondary, 10%);
     }
 }
 
 .btn-secondary {
-    background-color: darken($db-color-primary, 20%);
+    background-color: darken($db-color-primary, 30%);
     &:hover {
-        background-color: darken($db-color-primary, 40%);
+        background-color: darken($db-color-primary, 50%);
     }
+}
+
+.btn-cancel {
+    background-color: red;
+    &:hover {
+        background-color: darken(red, 10%);
+    }
+}
+
+.close-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    width: 4rem;
+    height: 4rem;
+    background-color: white;
+    border-radius: 50%;
+    margin-right: 2rem;
+    position: absolute;
+    right: 0%;
+    cursor: pointer;
 }
 
 //CONTENEDOR
@@ -324,8 +346,6 @@ $db-color-text--dark: #fffffa;
     padding: 2rem;
 }
 
-.active-view {
-}
 // GENERAL VIEW
 .general-view {
     width: 95%;
@@ -429,6 +449,30 @@ $db-color-text--dark: #fffffa;
 }
 //////////// MENU VIEW /////////////
 
+.overlay-edit-table {
+    position: fixed;
+    background-color: rgba(#000000, 0.5);
+    width: 100%;
+    height: 100%;
+    top: 0%;
+    display: none;
+    z-index: 3;
+    justify-content: center;
+    .menu-form-container {
+        align-self: center;
+        .form-product {
+            label {
+                display: block;
+            }
+        }
+        .btn-group {
+            display: flex;
+            flex-wrap: wrap;
+            width: 80%;
+        }
+    }
+}
+
 .menu-view {
     width: 100%;
     height: 100%;
@@ -446,6 +490,7 @@ $db-color-text--dark: #fffffa;
 }
 
 .menu-list {
+    padding: 2rem;
     width: 60%;
     height: 90%;
     background-color: white;
@@ -457,7 +502,7 @@ $db-color-text--dark: #fffffa;
     }
 }
 
-.menu-add {
+.menu-form-container {
     width: 30%;
     height: 85%;
     background-color: white;
@@ -465,7 +510,7 @@ $db-color-text--dark: #fffffa;
     -webkit-box-shadow: 0px 5px 22px 0px rgba(0, 0, 0, 0.54);
     -moz-box-shadow: 0px 5px 22px 0px rgba(0, 0, 0, 0.54);
     box-shadow: 0px 5px 22px 0px rgba(0, 0, 0, 0.54);
-    .form-add-product {
+    .form-product {
         height: 90%;
         padding-top: 3rem;
         text-align: center;

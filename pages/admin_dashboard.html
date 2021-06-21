@@ -14,6 +14,47 @@
     
   </head>
   <body class=".theme">
+    <div class="overlay-edit-table">
+      <p class="close-btn" onclick="offOverlay()">X</p>
+      <div class="menu-form-container">
+          <form action="" class="form-product" id="#edit-product-form">
+            <legend>Modificar Producto</legend>
+            <div class="form-group">
+              <label for="edit-product-name">Nombre de Producto</label>
+              <div>
+                <input id="edit-product-name" name="edit-product-name" placeholder="Nombre de Producto" required="" type="text"></input>
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="edit-product-desc">Descripción</label>
+              <div>
+                <input id="edit-product-desc" name="edit-product-desc" type="text" placeholder="Descripción de Producto" required="">
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="edit-product-expense">Precio</label>
+              <div>
+                <input id="edit-product-expense" name="edit-product-expense" type="number" placeholder="Precio de Producto" required="" min="0" step="any" pattern="^[0-9]+">
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="edit-product-stock">Cantidad</label>
+              <div>
+                <input id="edit-product-stock" name="edit-product-stock" type="number" placeholder="Cantidad de Producto" required="" min="0" pattern="^[0-9]+">
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="productbutton"></label>
+              <div class="btn-group">
+                <input class="btn btn-cancel" type="reset" onclick="offOverlay()" value="Cancelar">
+                <input class="btn btn-secondary" type="reset" value="Limpiar">
+                <input class="btn btn-primary" type="submit" value="Modificar Artículo">
+              </div>
+            </div>
+          </form>
+      </div>
+    </div>
+
     <div class="dashboard-container theme">
       <header class="header-dashboard">
         <div class="menu-icon">
@@ -125,6 +166,8 @@
           <h1>Menú</h1>
           <div class="menu-section d-grid-c-2">
             <div class="menu-list">
+              <label for="">Tabla de la Categoría: </label>
+              <input list="categories" placeholder="Seleccione la Categoría..." name="category" id="table-category">
               <table id="datatable-articles">
                 <thead>
                   <tr>
@@ -132,6 +175,7 @@
                     <th>Descripción</th>
                     <th>Cantidad</th>
                     <th>Precio</th>
+                    <th>Opciones</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -140,21 +184,18 @@
                     <td>Deliciosas</td>
                     <td>350</td>
                     <td>$20</td>
+                    <td></td>
                   </tr>
                 </tbody>
               </table>
             </div>
-            <div class="menu-add">
-              <form action="" class="form-add-product">
+            <div class="menu-form-container">
+              <form action="" class="form-product" id="add-product-form" onsubmit="return validateAddProduct(event)">
                 <legend>Agregar Producto</legend>
                 <div class="form-group">
                   <label for="product_ctgry">Nombre de Producto</label>
                   <div>
                     <input id="product_ctgry" name="product_ctgry" placeholder="Categoría de Producto" required="" list="categories"></input>
-                    <datalist id="categories">
-                      <option value="Postres"></option>
-                      <option value="Hamburguesas"></option>
-                    </datalist>
                   </div>
                 </div>
                 <div class="form-group">
@@ -172,13 +213,13 @@
                 <div class="form-group">
                   <label for="product_expense">Precio</label>
                   <div>
-                    <input id="product_expense" name="product_expense" type="number" placeholder="Precio de Producto" required="" min="0">
+                    <input id="product_expense" name="product_expense" type="number" placeholder="Precio de Producto" required="" min="0" step="any" pattern="^[0-9]+">
                   </div>
                 </div>
                 <div class="form-group">
                   <label for="product_stock">Cantidad</label>
                   <div>
-                    <input id="product_stock" name="product_stock" type="number" placeholder="Cantidad de Producto" required="" min="0">
+                    <input id="product_stock" name="product_stock" type="number" placeholder="Cantidad de Producto" required="" min="0" pattern="^[0-9]+">
                   </div>
                 </div>
                 <div class="form-group">
@@ -202,13 +243,13 @@
             <div class="transactions-pending">
               <table id="datatable-transactions-pending">
                 <thead>
-                  <th>
+                  <tr>
                     <th>Nombre de Usuario</th>
                     <th>E-Mail</th>
-                    <th>Cantidad</th>
+                    <th>Cantidad ($)</th>
                     <th>Voucher</th>
                     <th>Estatus</th>
-                  </th>
+                  </tr>
                 </thead>
               </table>
             </div>
@@ -274,6 +315,10 @@
       </main>
       <footer class="footer-dashboard"></footer>
     </div>
+    <datalist id="categories">
+      <option value="Postres"></option>
+      <option value="Hamburguesas"></option>
+    </datalist>
     <script src="/node_modules/jquery/dist/jquery.min.js"></script>
     <script src="//cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>

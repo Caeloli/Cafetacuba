@@ -1,6 +1,4 @@
 
-
-
 //AJAX URL
 const articleURL = "ArticleJSON";
 const categoryURL = "CategoryJSON";
@@ -210,7 +208,7 @@ $("#datatable-articles tbody").on("click", "button#edit-btn", function(){
 
 $("#edit-product-form").on("submit", function(evt){
     evt.preventDefault();
-    let formValues = $(this).serialize();
+    let formValues = {forms: $(this).serialize(), originalArticle: activeEditArt.name};
     $.post(editArticleServlet, formValues, function(data){
         tableArticles.ajax.reload();
         $(".overlay-edit-table").fadeOut();

@@ -1,12 +1,13 @@
-function validateAddProduct(evt){
-    console.log(evt);
+function validateAddProduct(){
     let validation = {
         categories: false,
     }
     validation.categories = validateCategories($("#product_ctgry").val());
     if(!isAllObjectTrue(validation)){
-        evt.preventDefault();
-    }
+        return false;
+    }  
+        
+    return true;
 };
 
 function validateCategories(val){

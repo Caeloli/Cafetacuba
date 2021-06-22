@@ -1,24 +1,24 @@
 [
     {
-      "_id": "60cfff49c9522b9edca0af71",
+      "transaction_id": "60cfff49c9522b9edca0af71",
       "firstname": "Maude",
       "lastname": "Owens",
       "email": "maudeowens@kneedles.com",
       "amount": 5,
-      "voucher": "d1b4fbcf-f130-4c9a-9688-6607dc325543",
-      "status": 0
+      "voucher": "C:\\Users\\caelo\\Desktop\\4%C2%B0%20Semestre\\ADOO\\Proyecto\\img\\Imagen1.png",
+      "status": 1
     },
     {
-      "_id": "60cfff497dddb22d81be47ae",
+      "transaction_id": "60cfff497dddb22d81be47ae",
       "firstname": "Beach",
       "lastname": "Leblanc",
       "email": "beachleblanc@kneedles.com",
       "amount": 5,
       "voucher": "462a33db-7ac6-4f5f-8caf-9b6fae33e97e",
-      "status": 0
+      "status": 2
     },
     {
-      "_id": "60cfff49826bb3a9ecd23b7b",
+      "transaction_id": "60cfff49826bb3a9ecd23b7b",
       "firstname": "Rowland",
       "lastname": "Richmond",
       "email": "rowlandrichmond@kneedles.com",
@@ -27,7 +27,7 @@
       "status": 0
     },
     {
-      "_id": "60cfff4902331cb7dfec5659",
+      "transaction_id": "60cfff4902331cb7dfec5659",
       "firstname": "Lindsey",
       "lastname": "Henderson",
       "email": "lindseyhenderson@kneedles.com",
@@ -36,7 +36,7 @@
       "status": 0
     },
     {
-      "_id": "60cfff49885e4fc911dc43df",
+      "transaction_id": "60cfff49885e4fc911dc43df",
       "firstname": "Singleton",
       "lastname": "Beach",
       "email": "singletonbeach@kneedles.com",
@@ -45,7 +45,7 @@
       "status": 1
     },
     {
-      "_id": "60cfff49c923c883d11f164d",
+      "transaction_id": "60cfff49c923c883d11f164d",
       "firstname": "Amy",
       "lastname": "Olsen",
       "email": "amyolsen@kneedles.com",
@@ -54,7 +54,7 @@
       "status": 1
     },
     {
-      "_id": "60cfff4966790636873bb94f",
+      "transaction_id": "60cfff4966790636873bb94f",
       "firstname": "Lourdes",
       "lastname": "Estes",
       "email": "lourdesestes@kneedles.com",

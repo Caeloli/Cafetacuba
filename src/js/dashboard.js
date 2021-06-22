@@ -1,9 +1,26 @@
+
+
+//AJAX URL
+const articleURL = "ArticleJSON";
+const categoryURL = "CategoryJSON";
+const generalResultURL = "GeneralResultJSON";
+const ordersURL ="OrderJSON";
+const transactionURL = "TransactionJSON";
+const userURL = "UserJSON";
+const addArticleFormServlet = "";
+const updateTransactionStatusServlet = "";
+const editArticleServlet = ""
+const deleteArticleServlet = "";
+//BACKGROUND
 const colorBgGreen = "#ABD5AB";
 const colorBgRed = "#F79C9B";
 const yellowBgColor = "#FFFDD0" ;
 //Display ALL Menu
 const userMenuBtn = $("#user-picture");
 const userMenu = $(".admin-user-menu");
+//LANGUAGE API
+const languageURL = "//cdn.datatables.net/plug-ins/1.10.25/i18n/Spanish.json";
+
 let isUserMenuSelected = false;
 userMenuBtn.click(function(){
     isUserMenuSelected = !isUserMenuSelected;
@@ -51,11 +68,11 @@ sidenavItems.each(function(){
 
 
 //DataTables
-const languageURL = "//cdn.datatables.net/plug-ins/1.10.25/i18n/Spanish.json";
+
 //GENERAL VIEW
 
 $.ajax({
-    url: "../../src/json/GeneralResult.json",
+    url: generalResultURL,
     type: "GET",
     dataType: "json",
     success: function(result){
@@ -68,12 +85,9 @@ $.ajax({
     }
 });
 
-
-
-
 $("#datatable-user").DataTable({
     ajax:{
-        url: "../../src/json/users.json",
+        url: userURL,
         dataSrc: ""
     },
     columns: [
@@ -83,6 +97,8 @@ $("#datatable-user").DataTable({
         {data: "email"},
         {data: "cellphone"}
     ],
+    pageLength: 4,
+    lengthMenu: [[4], [4]],
     language:{
         url : languageURL
     },
@@ -90,27 +106,25 @@ $("#datatable-user").DataTable({
 });
 
 $("#datatable-order").DataTable({
-    data:[
-        {
-            "idorder":       "1",
-            "name":   "César",
-            "surname":     "González",
-            "status": "pendiente",
-        }
-    ],
-    columns: [
-        {targets: 0, data: 'idorder'},
-        {targets: 1, data: function (row, type, val, meta){
-            return row.name + " " + row.surname
+    ajax:{
+        url: ordersURL,
+        dataSrc: ""
+    },
+    columns: 
+    [
+        {targets: 0, data: function (row, type, val, meta){
+            return row.firstname + " " + row.lastname
         }},
         {data: function(row){
-            return row.status.toUpperCase();
+            return "EN ESPERA";
         }}
     ],
     "rowCallback": function(row, data, index){
-        if(data.status.toUpperCase() === "PENDIENTE"){
-            $('td', row).css("background-color", yellowBgColor)
-        } 
+        if(data.statusID === 0){
+            $('td', row).css("background-color", colorBgRed)
+        } else{
+            $('td', row).remove();
+        }
     },
     language:{
         url : languageURL
@@ -119,9 +133,38 @@ $("#datatable-order").DataTable({
 });
 
 //MENU TABLE
+const dataList = $("#categories");
+const listCatInput = $("#table-category");
+$.ajax({
+    url: categoryURL,
+    type: "GET",
+    dataType: "json",
+    success: function(result){
+        for (let i = 0; i < result.length; i++) {
+            const optionHTML = $('<option value="'+ result[i].name.toUpperCase() +'"></option>');
+            dataList.append(optionHTML);
+        }
+    }
+})
+
 const tableArticles = $("#datatable-articles").DataTable({
+    ajax:{
+        url: articleURL,
+        dataSrc: ""
+    },
+    columns:[
+        {data: function(row, type, val, meta){
+            const str = row.category;
+            const str2 = str.charAt(0).toUpperCase() + str.slice(1);
+            return str2
+        }},
+        {data: "name"},
+        {data: "description"},
+        {data: "stock"},
+        {data: "price"}
+    ],
     columnDefs: [{
-        targets: -1,
+        targets: 5,
         data: null,
         defaultContent:  '<button id="edit-btn" style="border: 0; background: none; color: #d6a218; cursor: pointer"><i class="fas fa-edit"></i></button><button id="delete-btn" style="border: 0; background: none; color: #425c59; cursor: pointer"><i class="fas fa-trash-alt"></i></button>'
     }],
@@ -130,19 +173,63 @@ const tableArticles = $("#datatable-articles").DataTable({
     },
     responsive: true
 });
+//FILTER
+$.fn.dataTable.ext.search.push(
+    function(settings, data, dataIndex){
+
+        if(settings.nTable.id !== "datatable-articles"){
+            return true;
+        }
+        let valueList = listCatInput.val().toLowerCase();
+        let categoryData = data[0].toLowerCase();
+        if(valueList === categoryData){
+            return true;
+        }
+        return false;
+    }
+)
+
+listCatInput.on("input", function(){
+    tableArticles.draw();
+})
+
+let activeEditArt;
 
 $("#datatable-articles tbody").on("click", "button#edit-btn", function(){
-    const data = tableArticles.row($(this).parents('tr')).data();
-    $("#edit-product-name").val(data[0]);
-    $("#edit-product-desc").val(data[1]);
-    $("#edit-product-stock").val(data[2]);
-    $("#edit-product-expense").val(data[3].substring(1));
+    activeEditArt = tableArticles.row($(this).parents('tr')).data();
+    $("#edit-product-name").val(activeEditArt.name);
+    $("#edit-product-desc").val(activeEditArt.description);
+    $("#edit-product-stock").val(activeEditArt.stock);
+    $("#edit-product-expense").val(activeEditArt.price);
     $(".overlay-edit-table").fadeIn().css("display", "flex");
+    
 });
+
+
+
+$("#edit-product-form").on("submit", function(evt){
+    evt.preventDefault();
+    let formValues = $(this).serialize();
+    $.post(editArticleServlet, formValues, function(data){
+        tableArticles.ajax.reload();
+        $(".overlay-edit-table").fadeOut();
+    })
+
+})
+
 
 $("#datatable-articles tbody").on("click", "button#delete-btn", function(){
     const data = tableArticles.row($(this).parents('tr')).data();
-    confirm("¿Está seguro de borrar este artículo?");
+    if(confirm("¿Está seguro de borrar este artículo?")){
+        $.ajax({
+            url: deleteArticleServlet,
+            type: POST,
+            data: {name: data.name},
+            success: function(){
+                tableArticles.ajax.reload();
+            }
+        })
+    }
 });
 
 function offOverlay(){
@@ -150,6 +237,7 @@ function offOverlay(){
 }
 //TRANSACTIONS VIEW
 //GRAPH
+/*
 const labels = [
     'January',
     'February',
@@ -182,27 +270,60 @@ const labels = [
   let graphMoney = new Chart(
     document.getElementById('transaction-money-chart'),
     config
-  );
+  ); */
   //DATATABLE
   
 const tableTransaction = $("#datatable-transactions-pending").DataTable({
     ajax:{
-        url: "../../src/json/transaction.json",
+        url: transactionURL,
         dataSrc: ""
     },
     columns:[
-        {targets: 0, data: function (row, type, val, meta){
+        {targets: 0, data: function(row, type, val, meta){
+            if(row.status === 1){
+                return 0;
+            } else if(row.status === 2){
+                return 1;
+            } else{
+                return 2;
+            }
+        }},
+        {targets: 1, data: function (row, type, val, meta){
             return row.firstname + " " + row.lastname
         }},
         {data: "email"},
         {data: "amount"},
-        {data: "voucher"},
     ],
-    columnDefs: [{
-        targets: 4,
-        data: null,
-        defaultContent:  '<button id="accept-btn" style="border: 0; background: none; color: #03AC13; cursor: pointer"><i class="fas fa-check-square"></i></button><button id="deny-btn" style="border: 0; background: none; color: #DC143C; cursor: pointer"><i class="fas fa-window-close"></i></button>'
+    columnDefs: [
+        {
+            targets: 4,
+            data: function(row, type, val, meta){
+                return '<a href="'+ row.voucher +'" target="_blank"><i class="fas fa-external-link-alt"></i></a>'
+            }
+        },
+        
+        {
+        targets: 5,
+        data:  function(row, type, val, meta){
+            if(row.status === 1){//1 is pending
+                return '<button id="accept-btn" style="border: 0; background: none; color: #03AC13; cursor: pointer"><i class="fas fa-check-square"></i></button><button id="deny-btn" style="border: 0; background: none; color: #DC143C; cursor: pointer"><i class="fas fa-window-close"></i></button>'
+            }  else if(row.status === 2){
+                return '<p style="color: white; font-weight: bold;">ACEPTADO</p>'
+            } else{
+                return '<p style="color: white; font-weight: bold;">RECHAZADO</p>'
+            }
+        }
     }],
+    "rowCallback": function(row, data, index){
+        if(data.status === 1){
+            $('td', row).css("background-color", yellowBgColor);  
+        } else if(data.status === 2){
+            $('td', row).css("background-color", colorBgGreen);  
+        } else{
+            $('td', row).css("background-color", colorBgRed);  
+        }
+        //$('td', row).hide();
+    },
     language:{
         url: languageURL
     },
@@ -214,9 +335,17 @@ $("#datatable-transactions-pending tbody").on("click", "button#accept-btn", func
     const parentCell = $(this).closest("td");
     let cell = tableTransaction.cell(parentCell).node();
     let row = tableTransaction.row(parentRow).node();
-    $(cell).empty();
-    $(cell).append('<p style="color: green; font-size:1.5rem">ACEPTADO</p>')
-    $(row).css("background-color", colorBgGreen).css("color", "white");
+    $.ajax({
+        type: "POST",
+        url: updateTransactionStatusServlet,
+        data: {id_transaction: tableTransaction.row(parentRow).data().transaction_id ,status: 2},
+        success: function(data){
+            $(cell).empty();
+            $(cell).append('<p style="color: green; font-weight: bold;">ACEPTADO</p>')
+            $(row).css("background-color", colorBgGreen).css("color", "white");
+            tableTransaction.ajax.reload(null, false);
+        }
+    })
 });
 
 $("#datatable-transactions-pending tbody").on("click", "button#deny-btn", function(){
@@ -224,16 +353,24 @@ $("#datatable-transactions-pending tbody").on("click", "button#deny-btn", functi
     const parentCell = $(this).closest("td");
     let cell = tableTransaction.cell(parentCell).node();
     let row = tableTransaction.row(parentRow).node();
-    $(cell).empty();
-    $(cell).append('<p style="color: #B02220; font-size:1.5rem">RECHAZADO</p>')
-    $(row).css("background-color", colorBgRed).css("color", "white");
+    $.ajax({
+        type: "POST",
+        url: updateTransactionStatusServlet,
+        data: {id_transaction: tableTransaction.row(parentRow).data().transaction_id ,status: 0},
+        success: function(data){
+            $(cell).empty();
+            $(cell).append('<p style="color: #B02220; font-weight: bold;">RECHAZADO</p>')
+            $(row).css("background-color", colorBgRed).css("color", "white");
+            tableTransaction.ajax.reload(null, false);
+        }
+    })
 });
 
 /////////7USERS VIEW/////////7/////////7/////////7/////////7/////////
 /////////7/////////7/////////7/////////7/////////7/////////7/////////
 const usersTable = $("#datatable-users-view").DataTable({
     ajax:{
-        url: "../../src/json/users.json",
+        url: userURL,
         dataSrc: ""
     },
     columns: [
@@ -257,7 +394,7 @@ setInterval(function(){
 //ORDERS MENU
 $("#datatable-orders").DataTable({
     ajax:{
-        url: "../../src/json/orders.json",
+        url: ordersURL,
         dataSrc: ""
     },
     columns: [
@@ -291,3 +428,30 @@ language:{
 responsive: true
 });
 
+///SEND INFO SERVER
+$("#add-product-form").on("submit", function(evt){
+    evt.preventDefault();
+    let formValues = $(this).serialize();
+    if(validateAddProduct())
+    $.post(addArticleFormServlet, formValues, function(data){
+        tableArticles.ajax.reload(null, false)
+        const message = $("<p></p>").text("Formulario Enviado Correctamente");
+        message.css("display", "block").css("background-color", colorBgGreen).css("color", "white");
+        $("#add-product-form").append(message)
+        setTimeout(function(){
+            message.remove();
+        }, 5000);
+    })
+    else 
+        return;
+})
+
+
+
+/*
+function seriald(){
+    console.log(form);
+    const s = form.serialize()
+    form.find("input").attr("disabled", "disabled");
+    console.log(s);
+}*/

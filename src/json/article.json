@@ -1,0 +1,37 @@
+[
+    {
+        "category": "postre",
+        "name": "Red Velvet",
+        "description": "Dinaco",
+        "price": 10,
+        "stock": 20
+    },
+    {
+        "category": "postre",
+        "name": "Red Velvet",
+        "description": "Dinaco",
+        "price": 10,
+        "stock": 20
+    },
+    {
+        "category": "postre",
+        "name": "Red Velvet",
+        "description": "Dinaco",
+        "price": 10,
+        "stock": 20
+    },
+    {
+        "category": "hamburguesa",
+        "name": "TOCINO",
+        "description": "Dinaco",
+        "price": 10,
+        "stock": 20
+    },
+    {
+        "category": "cafe",
+        "name": "Espresso",
+        "description": "Dinaco",
+        "price": 10,
+        "stock": 20
+    }
+]
